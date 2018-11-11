@@ -3,6 +3,7 @@
     <tr>
       <th>Order</th>
       <th>Location</th>
+      <th>Link</th>
       <th>Tag</th>
       <th>Score</th>
 </tr>
@@ -10,10 +11,12 @@
 <tbody>
 {% for result in result_list %}
     <tr text-align="center">
-        {% for item in result %}
-       <td class="text-center">{{ item }}</td>
-
-        {% endfor %}
+        
+       <td class="text-center">{{ result.0 }}</td>
+       <td class="text-center">{{ result.1 }}</td>
+       <td class="text-center"><a href="{{ result.2 }}"> imagine link</a></td>
+       <td class="text-center">{{ result.3 }}</td>
+       <td class="text-center">{{ result.4 }}</td>
     </tr>
 
 {% endfor %}
