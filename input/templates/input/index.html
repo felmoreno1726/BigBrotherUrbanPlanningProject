@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>input</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href={% static 'input/show.css' %} rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+</head>
+<body>
+
+
+
+
+
+<div id="inputbox">
+    start latitude:  <input type="text" id="start_latitude" value="42.348933">
+    start longitude: <input type="text" id="start_longitude" value="-71.097594">
+    end latitude: <input type="text" id="end_latitude" value="42.352140">
+    end longitude: <input type="text" id="end_longitude" value="-71.123463">
+    N points: <input type="text" id="N" value="10">
+    <button class='btn btn-success' onclick="calculate()"> click </button>
+</div>
+
+
+
+<
+<div id="tablelist" class="content" style="visibility: hidden;" >
+
+<script>
+    function calculate() {
+        var a = new Array()
+        a[0]=document.getElementById("start_latitude").value ;
+        a[1]=document.getElementById("start_longitude").value ;
+        a[2]=document.getElementById("end_latitude").value ;
+        a[3]=document.getElementById("end_longitude").value ;
+        a[4]=document.getElementById("N").value ;
+        console.log(a)
+
+        {#new_url=a[0]+"/"+a[1]+"/"+a[2]+"/"+a[3];#}
+
+        $.ajax({
+            url: "cal",
+            type: 'get', // This is the default though, you don't actually need to always mention it
+            data: {'start_latitude':a[0],
+                'start_longitude': a[1],
+                'end_latitude':  a[2],
+                'end_longitude': a[3],
+                'N':a[4]
+            },
+            success: function(data) {
+                document.getElementById("tablelist").style.visibility="visible";
+                document.getElementById("tablelist").innerHTML=data;
+                {#altRows('tablelist');#}
+            },
+        });
+    };
+
+    $.backstretch("https://www.gannett-cdn.com/presto/2018/08/06/USAT/d7e9198a-b2fa-4ca6-b947-31c3751cc248-GettyImages-898660948.jpg");
+
+</script>
+
+
+
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>

@@ -1,11 +1,11 @@
-,url,tag,score
-0,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Luxury vehicle,0.4665733873844147
-1,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,,0.3831000030040741
-2,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Compact car,0.32628875970840454
-3,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Street,0.3120492100715637
-4,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Mixed-use,0.22531995177268982
-5,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Urban design,0.22472649812698364
-6,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Sedan,0.21380266547203064
-7,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Family car,0.2073156237602234
-8,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Property,0.19402295351028442
-9,https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0,Vehicle,0.19269999861717224
+,url,location,score
+0,"42.349018433310675,-71.09757458041415",Luxury vehicle,0.4665733873844147
+1,"42.349018433310675,-71.09757458041415",,0.3831000030040741
+2,"42.349018433310675,-71.09757458041415",Compact car,0.32628875970840454
+3,"42.349018433310675,-71.09757458041415",Street,0.3120492100715637
+4,"42.349018433310675,-71.09757458041415",Mixed-use,0.22531995177268982
+5,"42.349018433310675,-71.09757458041415",Urban design,0.22472649812698364
+6,"42.349018433310675,-71.09757458041415",Sedan,0.21380266547203064
+7,"42.349018433310675,-71.09757458041415",Family car,0.2073156237602234
+8,"42.349018433310675,-71.09757458041415",Property,0.19402295351028442
+9,"42.349018433310675,-71.09757458041415",Vehicle,0.19269999861717224

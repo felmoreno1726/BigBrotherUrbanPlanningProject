@@ -1,0 +1,25 @@
+#inputbox {
+    color:rgb(255,255,255);
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.btn{
+    margin-left: 30px;
+}
+
+#tablelist{
+    margin-top: 30px;
+}
+
+th{
+    text-align:center;
+}
+
+.content {
+    border-radius: 20px;
+    padding: 10px 60px 30px 60px;
+    background:rgba(255, 255, 255, 0.95) none repeat scroll !important;
+}
