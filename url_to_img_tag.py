@@ -29,6 +29,7 @@ from google.cloud import vision
 from google.cloud.vision import types
 # [END vision_web_detection_tutorial_imports]
 import os
+import pandas as pd
 
 print('Credendtials from environ: {}'.format(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')))
 
@@ -52,6 +53,29 @@ def annotate(path):
 
     return web_detection
 
+def annotate_urls(list_of_urls):
+    """
+        Params: a list of url strings
+    Returns a python dataframe object with the url, image annotatio and its score
+    """
+    client = vision.ImageAnnotatorClient()
+    df = pd.DataFrame(columns =('url', 'tag', 'score'))
+    idx_counter = 0
+    for url in list_of_urls:
+        if url.startswith('http') or url.startswith('gs: '):
+            image = types.Image()
+            image.source.image_uri = url
+        else:
+            with io.open(url, 'rb') as image_file:
+                content = image_file.read()
+
+            image = types.Image(content = content)
+        web_detection = client.web_detection(image=image).web_detection
+        for entity in web_detection.web_entities:
+            print(entity)
+            df.loc[idx_counter] = [url, entity.description, entity.score]
+            idx_counter += 1
+        return df
 
 def report(annotations):
     """Prints detected features in the provided web annotations."""
@@ -90,15 +114,17 @@ def report(annotations):
 if __name__ == '__main__':
 
     # [START vision_web_detection_tutorial_run_application]
-	parser = argparse.ArgumentParser(
-		description=__doc__,
-	formatter_class=argparse.RawDescriptionHelpFormatter)
-	path_help = str('The image to detect, can be web URI, '
-		'Google Cloud Storage, or path to local file.')
-	parser.add_argument('image_url', help=path_help)
-	args = parser.parse_args()
-	report(annotate(args.image_url))
-	#sample_urls = ['https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640']
+	#parser = argparse.ArgumentParser(
+	#	description=__doc__,
+	#formatter_class=argparse.RawDescriptionHelpFormatter)
+	#path_help = str('The image to detect, can be web URI, '
+	#	'Google Cloud Storage, or path to local file.')
+	#parser.add_argument('image_url', help=path_help)
+	#args = parser.parse_args()
+	#report(annotate(args.image_url))
+    sample_urls = ['https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640']
+    report = annotate_urls(sample_urls)
+    print(report)
 	#for url in sample_urls:
 	#	report(annotate(url))
     # [END vision_web_detection_tutorial_run_application]
