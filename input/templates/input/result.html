@@ -4,21 +4,35 @@
       <th>Order</th>
       <th>Location</th>
       <th>Tag</th>
-      <th>Score</td>
+      <th>Score</th>
 </tr>
 </thead>
-
-
 <tbody>
 {% for result in result_list %}
     <tr text-align="center">
         {% for item in result %}
-       <td>{{ item }}</td>
+       <td class="text-center">{{ item }}</td>
 
         {% endfor %}
     </tr>
 
 {% endfor %}
 </tbody>
+</table>
 
+<table class="table table-bordered">
+  <thead>
+    <th>Quiet</th>
+    <th>Traffic</th>
+    <th>Safety</th>
+    <th>Errand</th>
+    <th>Entertainment</th>
+  </thead>
+  <tbody>
+    <tr>
+      {% for item in Shine_result %}
+      <td class="text-center">{{ item }}</td>
+      {% endfor %}
+    </tr>
+  </tbody>
 </table>

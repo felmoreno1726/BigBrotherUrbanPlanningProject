@@ -85,7 +85,7 @@ def export_to_csv(df):
             df: a pandas datafame object
         Returns: a csv file named annotations.csv
     """
-    df.to_csv("output_report.csv", sep="|")
+    df.to_csv("output_report")
 
 def report(annotations):
     """Prints detected features in the provided web annotations."""
@@ -102,14 +102,18 @@ def report(annotations):
               len(annotations.full_matching_images)))
 
         for image in annotations.full_matching_images:
-            print('Url  : {}'.format(image.url))
+            parsed_url = dict(parse.parse_qsl(parse.urlsplit(image.url).query))
+            location = parsed_url["location"]
+            print('Location  : {}'.format(image.url))
 
     if annotations.partial_matching_images:
         print('\n{} Partial Matches found: '.format(
               len(annotations.partial_matching_images)))
 
         for image in annotations.partial_matching_images:
-            print('Url  : {}'.format(image.url))
+            parsed_url = dict(parse.parse_qsl(parse.urlsplit(image.url).query))
+            location = parsed_url["location"]
+            print('Location  : {}'.format(image.url))
 
     if annotations.web_entities:
         print('\n{} Web entities found: '.format(
@@ -130,16 +134,14 @@ if __name__ == '__main__':
 	#path_help = str('The image to detect, can be web URI, '
 	#	'Google Cloud Storage, or path to local file.')
 	#parser.add_argument('image_url', help=path_help)
-    #args = parser.parse_args()
-    report(annotate(args.image_url))
+	#args = parser.parse_args()
+	#report(annotate(args.image_url))
     #sample_urls = ['https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640']
     sample_urls = ['https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=90', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=180', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=270']
-    #img_path = './output_images/streetview1.jpeg'
-    #annotations = annotate(img_path)
-    #print(annotations)
-    #report(annotations)
     report = annotate_urls(sample_urls)
     print(report)
     export_to_csv(report)
+	#for url in sample_urls:
+	#	report(annotate(url))
     # [END vision_web_detection_tutorial_run_application]
 # [END vision_web_detection_tutorial]
