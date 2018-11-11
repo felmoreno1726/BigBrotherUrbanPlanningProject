@@ -32,7 +32,7 @@ def geturl(request):
 
     with open('output_report.csv', 'r') as f:
         f = [x.strip('\n') for x in f][1:]
-        f = [x.split(',') for x in f]
+        f = [x.split('|') for x in f]
         # Parse the location for the first input
         #for i in range(len(f)):
             #parsed_url = dict(parse.parse_qsl(parse.urlsplit(f[i][1]).query))
