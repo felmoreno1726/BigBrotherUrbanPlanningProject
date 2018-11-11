@@ -30,6 +30,7 @@ from google.cloud.vision import types
 # [END vision_web_detection_tutorial_imports]
 import os
 import pandas as pd
+from urllib import parse
 
 print('Credendtials from environ: {}'.format(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')))
 
@@ -59,7 +60,7 @@ def annotate_urls(list_of_urls):
     Returns a python dataframe object with the url, image annotatio and its score
     """
     client = vision.ImageAnnotatorClient()
-    df = pd.DataFrame(columns =('url', 'tag', 'score'))
+    df = pd.DataFrame(columns =('url', 'location', 'score'))
     idx_counter = 0
     for url in list_of_urls:
         if url.startswith('http') or url.startswith('gs: '):
@@ -72,8 +73,9 @@ def annotate_urls(list_of_urls):
             image = types.Image(content = content)
         web_detection = client.web_detection(image=image).web_detection
         for entity in web_detection.web_entities:
-            print(entity)
-            df.loc[idx_counter] = [url, entity.description, entity.score]
+            parsed_url = dict(parse.parse_qsl(parse.urlsplit(url).query))
+            location = parsed_url["location"]
+            df.loc[idx_counter] = [location, entity.description, entity.score]
             idx_counter += 1
         return df
 
