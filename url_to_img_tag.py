@@ -59,8 +59,9 @@ def annotate_urls(list_of_urls):
         Params: a list of url strings
     Returns a python dataframe object with the url, image annotatio and its score
     """
+    #print("List of URLS: ", list_of_urls    )
     client = vision.ImageAnnotatorClient()
-    df = pd.DataFrame(columns =('url', 'location', 'score'))
+    df = pd.DataFrame(columns =('location', 'url', 'name tag', 'score'))
     idx_counter = 0
     for url in list_of_urls:
         if url.startswith('http') or url.startswith('gs: '):
@@ -75,7 +76,8 @@ def annotate_urls(list_of_urls):
         for entity in web_detection.web_entities:
             parsed_url = dict(parse.parse_qsl(parse.urlsplit(url).query))
             location = parsed_url["location"]
-            df.loc[idx_counter] = [location, entity.description, entity.score]
+            print("Locus: ", location)
+            df.loc[idx_counter] = [location, url, entity.description, entity.score]
             idx_counter += 1
         return df
 
@@ -85,7 +87,7 @@ def export_to_csv(df):
             df: a pandas datafame object
         Returns: a csv file named annotations.csv
     """
-    df.to_csv("output_report")
+    df.to_csv("output_report.csv", sep='|')
 
 def report(annotations):
     """Prints detected features in the provided web annotations."""
@@ -136,8 +138,8 @@ if __name__ == '__main__':
 	#parser.add_argument('image_url', help=path_help)
 	#args = parser.parse_args()
 	#report(annotate(args.image_url))
-    #sample_urls = ['https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640']
-    sample_urls = ['https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=90', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=180', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=270']
+    sample_urls = ['https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640', 'https://maps.googleapis.com/maps/api/streetview?location=42.352126880933916%2C-71.12346594024035&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&size=640x640']
+    #sample_urls = ['https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=0', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=90', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=180', 'https://maps.googleapis.com/maps/api/streetview?size=640x640&location=42.349018433310675%2C-71.09757458041415&key=AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA&heading=270']
     report = annotate_urls(sample_urls)
     print(report)
     export_to_csv(report)
