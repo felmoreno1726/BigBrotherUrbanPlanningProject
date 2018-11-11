@@ -12,7 +12,7 @@ import generate_circle_linspace
 from generate_circle_linspace import latt_long_linspace
 
 # Define API keys and signed URL
-api_key = "AIzaSyCVx6Vms7Sm1tvsm8NdvLt2FNdWdX7bicA"
+api_key = "YOURAPIRKEY"
 
 # Return URL array for the images
 def get_url(_points):
