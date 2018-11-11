@@ -48,6 +48,9 @@ def geturl(request):
     with open('output_report.csv', 'r') as f:
         f = [x.strip('\n') for x in f][1:]
         f = [x.split('|') for x in f]
+        # Replace the url string in column 1
+        f[:][1] = "<a target='_blank' rel='noopener noreferrer' href='{}'>Image link</a>".format(f[:][1])
+
         # Parse the location for the first input
         #for i in range(len(f)):
         #    parsed_url = dict(parse.parse_qsl(parse.urlsplit(f[i][1]).query))
