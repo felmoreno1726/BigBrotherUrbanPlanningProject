@@ -21,6 +21,7 @@ def get_url(_points):
         'size': '640x640', # max 640x640 pixels
         'location': '', # lattitude and longitude for the location
         'key': api_key, # api key
+        'fov': 120, # maximum FOV to have better views of the pavement
         'heading': '' # indicates the compass heading, 0 for North, 90 for East
     }
     # Heading to create a 360 view
