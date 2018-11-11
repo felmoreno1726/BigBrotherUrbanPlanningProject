@@ -1,0 +1,6 @@
+--2018-11-11 01:54:14--  https://maps.googleapis.com/maps/api/streetview?location=42.349696,-71.105081
+Resolving maps.googleapis.com (maps.googleapis.com)... 216.58.205.10, 172.217.19.234, 172.217.22.138, ...
+Connecting to maps.googleapis.com (maps.googleapis.com)|216.58.205.10|:443... connected.
+HTTP request sent, awaiting response... 400 Bad Request
+2018-11-11 01:54:15 ERROR 400: Bad Request.
+
